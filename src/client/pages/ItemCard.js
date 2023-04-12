@@ -3,20 +3,24 @@ import { withFetch } from "../shared/HOC/withFetch";
 import { Breadcrumb } from "../components/Breadcrumb.jsx";
 
 function ItemCard(props) {
-  
-  if(!props.data){
+
+  if (!props.data) {
     return null
   }
   const { item } = props.data;
-  const categories =  props.data.categories || [];
+  const categories = props.data.categories || [];
 
-  if(!item){
+  if (!item) {
     return null
   }
   return (
     <section className="body">
       <div className="body__content">
-        <Breadcrumb categories={categories}/>
+        <Helmet>
+          <title>{item.title}</title>
+          <meta name="description" content={item.description} />
+        </Helmet>
+        <Breadcrumb categories={categories} />
 
         <div className="card_detail">
           <div className="card_detail__info">

@@ -19,7 +19,8 @@ function getControllers() {
 }
 
 export async function renderPages(req, res){
-    const activeRoute = routes.find((route) => matchPath(route.path, req.url))
+    const url=String(req.url).split('?')[0];
+    const activeRoute = routes.find((route) => matchPath(route.path, url))
     if(!activeRoute){
       // console.log(req)
       return ''

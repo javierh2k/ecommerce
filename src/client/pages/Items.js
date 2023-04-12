@@ -3,6 +3,7 @@ import { withFetch } from '../shared/HOC/withFetch'
 import { useStateContext } from '../components/Provider.jsx'
 import { Item } from '../components/Item.jsx'
 import { Breadcrumb } from '../components/Breadcrumb.jsx'
+import Helmet from "react-helmet";
 
 
 function Items(props) {
@@ -18,6 +19,10 @@ function Items(props) {
 
   return (
     <section className="body">
+      <Helmet>
+            <title>List items</title>
+            <meta name="description" content="List products" />
+      </Helmet>
       <div className="body__content">
         <Breadcrumb categories={categories}/>
         <ul className="card">
