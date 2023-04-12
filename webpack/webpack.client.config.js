@@ -18,23 +18,11 @@ const hotMiddlewareScript ='webpack-hot-middleware/client?path=/__webpack_hmr&ti
 
 
 const browserConfig = {
-  // mode: "production",
   mode: _isDev ? 'development' : 'production',
-  // entry: getPath('src/client/index.js'),
-  // entry: {//'webpack-hot-middleware/client?reload=true'
-  //   main: ['webpack-hot-middleware/client?reload=true&timeout=2000', getPath('src/client/index.js')]
-  // },
-  // context: getPath(),
   entry: [
     'webpack-hot-middleware/client?reload=true',
     getPath('src/client/index.js'),
   ],
-  // entry: ["webpack-hot-middleware/client?reload=true", getPath('src/client/index.js')],
-  // entry: {
-  //   // Add the client which connects to our middleware
-  //   client: [getPath('src/client/index.js'), hotMiddlewareScript],
-  //   // extra: ['./extra.js', hotMiddlewareScript],
-  // },
   devServer: {
     static: getPath('dist'),
     hot: true,
@@ -47,11 +35,6 @@ const browserConfig = {
   module: {
     rules: [
       {
-        test: /\.(ts|tsx)?$/,
-        use: 'ts-loader',
-        exclude: /node_modules/,
-      },
-      {
         test: /\.(png|jp(e*)g|gif|webp|avif)$/,
         use: ['file-loader'],
       },
@@ -63,14 +46,10 @@ const browserConfig = {
           test: /\.js|jsx?$/,
           exclude: /node_modules/,
           loader: 'swc-loader',
-          // options: swcConfig,
+          options: swcConfig,
       },
-      // { test: /\.js|jsx?$/, use: 'swc-loader', exclude: /node_modules/,  options: swcConfig,},
       { 
         test: /\.(sa|sc|c)ss$/,
-        // options: {
-        //   esModule: false,// => remove this would fix the reload issue
-        // },
         use: [
           devMode ? "style-loader" : MiniCssExtractPlugin.loader,//SSR
           "css-loader",

@@ -1,7 +1,5 @@
 # React ML
 
-### Info
-
 ## install
 npm i
 
@@ -11,10 +9,11 @@ copy .env.example .env
 
 ## start project
 
-1) yarn build:server
-2) yarn front => run frontend and backend
+run frontend and backend
 
-yarn api => only backend
+> yarn dev
+
+> yarn api => only backend
 
 
 

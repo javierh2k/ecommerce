@@ -18,10 +18,6 @@ const serverConfig = {
   mode: _isDev ? 'development' : 'production',
   entry: getPath('src/server/index.js'),
   target: 'node',
-  // globals: {
-  //   __SERVER__: true,
-  //   __DEV__: false,
-  // },
   externals: [nodeExternals()],
   resolve: {
     alias: {
@@ -51,13 +47,8 @@ const serverConfig = {
         test: /\.(png|jp(e*)g|gif|webp|avif)$/,
         use: ['file-loader'],
       },
-      // { test: /\.(js)$/, use: 'swc-loader', exclude: /node_modules/, options: swcConfig, },
-      // { test: /\.css$/, use: [MiniCssExtractPlugin.loader, 'css-loader'] }
       { 
         test: /\.(sa|sc|c)ss$/,
-        // options: {
-        //   esModule: false,// => remove this would fix the reload issue
-        // },
         use: [
           _isDev ? "style-loader" : MiniCssExtractPlugin.loader,//SSR
           "css-loader",

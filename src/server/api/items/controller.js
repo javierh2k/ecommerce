@@ -4,8 +4,6 @@ import { normalizeCategories, normalizeItems, normalizeItem, request } from './h
 async function getItems(req, res) {
     try {
         const term = req.query.q ? `q=${req.query.q}` : '';
-        //req.query.q ? `q=${req.query.q}` : '';
-        // 'q=relevant';
         const resultItems = await request(`/sites/MLA/search?${term}&limit=4`);
         const category_id = resultItems.results?.length ? resultItems.results[0].category_id : '';
 
@@ -30,23 +28,13 @@ async function getItem(req, res) {
         res.send('');
         return
     }
-    // console.log(req.headers.accept )
     const idParamFrontend= String(req.params['0']).split('/').pop();
-    // console.log('params::',req.params);
     const id = req.params.id || idParamFrontend;
-    // console.log('id::',id)
     const responseitem = request(`/items/${id}`);
    
     const responseDescription = request(`/items/${id}/description`);
     const [item, description] = await Promise.all([responseitem, responseDescription]);
     item.description = description.plain_text;
-    // console.log('responseitem::', item)
-    if(item.error || id===undefined){
-    //     const dataError ={error: item.error};
-    //     if (req.returnJSON) return dataError;
-    //     res.send(dataError);
-    //    return
-    }
 
     const data = {
         author: res.author,
@@ -58,8 +46,6 @@ async function getItem(req, res) {
 
 
 }
-
-
 
 module.exports = {
     getItems,

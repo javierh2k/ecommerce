@@ -11,7 +11,7 @@
     "prod:build": "npm run prod:server && npm run prod:client",
     "dev:watch": "webpack --watch  --config webpack/webpack.server.config.js",
     "dev:server": "nodemon dist/server.js",
-    "api": "npm-run-all --parallel dev:watch dev:server",
+    "dev": "npm-run-all --parallel dev:watch dev:server",
     "front": "cross-env HOTRELOAD=true node dist/server.js",
     "build:server": "webpack --mode development --config webpack/webpack.server.config.js",
     "client": "webpack --mode development --config webpack/webpack.client.config.js",

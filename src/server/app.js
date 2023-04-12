@@ -8,15 +8,6 @@ const fs = require('fs');
 const path = require('path');
   
 const app = express()
-if(process.env.HOTRELOAD){
-  const websocketServerCreator = __DEV__ ? require('../../webpack/websocket-server-creator').default : undefined;
-  const webpackMiddleware = __DEV__ ? require('../../webpack/webpack.middleware').default : undefined;
-  
-  if (typeof webpackMiddleware === 'function') {
-    const ws = websocketServerCreator(app);
-    app.use(webpackMiddleware(ws));
-  }
-}
 
 
 function getRoutesTesting(folderRootName) {
