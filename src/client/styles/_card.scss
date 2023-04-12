@@ -1,0 +1,57 @@
+.card {
+    background-color: white;
+    padding: 0 $spacing 0 $spacing ;
+    font-size: 0.7rem;
+    width: 100%;
+    color: $black;
+    cursor: pointer;
+
+
+    &__image {
+        height: 11rem;
+        width: 10rem;
+        border-radius: 2px;
+        background-size: cover;
+        background-position: center center;
+        object-fit: fill;
+    }
+
+    &__content {
+        display: flex;
+        height: 100%;
+        margin: $spacing 0;
+        border-bottom: 1px solid #efefef;
+        
+        &:hover{
+            box-shadow: 5px 5px 15px #d4d1d1;
+        }
+    }
+
+
+    &__description {
+        margin: 0;
+        padding: $spacing;
+        text-align: left;
+        flex:1;
+        font-size: 1rem;
+        &__price{
+            font-size: 1.2rem;
+            align-items: center;
+            display: flex;
+            img{
+                margin-left: $spacing;
+            }
+        }
+
+        &__title{
+            margin-top: 7px;
+        }
+    }
+    &__provider {
+        text-align: center;
+        min-width: 8rem;;
+        padding-top: 20px;
+        font-size: 0.8rem;
+    }
+
+}

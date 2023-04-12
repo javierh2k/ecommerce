@@ -1,0 +1,73 @@
+.card_detail {
+    background-color: white;
+    padding: $spacing*3;
+    width: 100%;
+    margin: auto;
+    display: flex;
+    max-width: $max-width;
+    color: $black;
+
+
+    &__info{
+        flex:1;
+        &____image{
+            width: 100%;
+        }
+    }
+    &__description{
+        text-align: left;
+        &__title{
+            font-size: 1.7rem;
+            margin-top: 9rem;
+        }
+
+        &__text{
+            font-size: 0.9rem;
+            color: rgb(167, 165, 165);
+            margin-top: 2rem;
+        }
+    }
+
+
+    &__sidebar{
+        width:25%;
+        text-align: left;
+
+        &__quantity{
+            font-size: 0.8rem;
+            margin-bottom: $spacing;
+        }
+        &__title{
+            font-weight: 600;
+            font-size: 1.2rem;
+            line-height: 1.3;
+        }
+        &__price{
+            margin-top: $spacing*2;
+            
+            font-size: 2rem;
+            display: flex;
+           
+            &__decimal{
+                margin-top: 5px;
+                padding: 0 5px;
+                font-size: 1.1rem;
+            }
+        }
+        &__button_buy{
+            font-size: 1rem;
+            margin-top: $spacing*6;
+            background-color: #3483fa;
+            color: white;
+            border-radius: 3px;
+            text-align: center;
+            width: 100%;
+            padding: $spacing 0;
+            border: none;
+        }
+        
+    }
+    
+   
+
+}
