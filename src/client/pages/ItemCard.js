@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { withFetch } from "../shared/HOC/withFetch";
 import { Breadcrumb } from "../components/Breadcrumb.jsx";
+import Helmet from "react-helmet";
 
 function ItemCard(props) {
 
