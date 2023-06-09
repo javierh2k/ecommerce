@@ -1,6 +1,6 @@
 import React from 'react';
 import ItemCard from './pages/ItemCard'
-import Items from './pages/Items'
+import Items from './pages/ItemsList'
 
 const routes =  [
   {

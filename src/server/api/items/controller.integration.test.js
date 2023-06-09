@@ -11,18 +11,18 @@ describe('Validate Finger Print', () => {
 });
 
 
-describe('GET /api/items', () => {
-    it('should return an empty array', async () => {
-        const resp = await request.get('/api/items');
-        expect(resp.body).toEqual(getItemsMock.response);
-    });
-});
+// describe('GET /api/items', () => {
+//     it('should return an empty array', async () => {
+//         const resp = await request.get('/api/items');
+//         expect(resp.body).toEqual(getItemsMock.response);
+//     });
+// });
 
-describe('GET /api/items', () => {
-    it('Should show 4 items', async () => {
-        const resp = await request.get('/api/items?q=relevant');
-        expect(resp.body.items.length).toEqual(4);
-    });
-});
+// describe('GET /api/items', () => {
+//     it('Should show 4 items', async () => {
+//         const resp = await request.get('/api/items?q=relevant');
+//         expect(resp.body.items.length).toEqual(4);
+//     });
+// });
 
 

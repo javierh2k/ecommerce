@@ -18,11 +18,13 @@ const config = {
         '^.+\\.(t|j)sx?$':['@swc/jest', swcConfig]
     },
     rootDir: '.',
+    modulePathIgnorePatterns: ["<rootDir>/src/server/renderPages.js"],
+    coveragePathIgnorePatterns: ["<rootDir>/src/server/renderPages.js"],
     moduleDirectories: ['node_modules', 'src'],
     moduleNameMapper: {
         '^server(.*)$': '<rootDir>/src/server$1',
     },
-    moduleFileExtensions: ['js', 'jsx']
+    moduleFileExtensions: ['js']
   };
   
   module.exports = config;

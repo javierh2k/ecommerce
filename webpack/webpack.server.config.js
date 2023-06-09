@@ -42,15 +42,23 @@ const serverConfig = {
         exclude: /node_modules/,
         loader: 'swc-loader',
         options: swcConfig,
-      },
+    },
       {
         test: /\.(png|jp(e*)g|gif|webp|avif)$/,
-        use: ['file-loader'],
+        // use: ['file-loader'],
+        use: [
+          {
+            loader: 'file-loader',
+             options: {
+               name: '[name].[ext]',
+               publicPath: '/'
+            }
+          }]
       },
       { 
         test: /\.(sa|sc|c)ss$/,
         use: [
-          _isDev ? "style-loader" : MiniCssExtractPlugin.loader,//SSR
+          // devMode ? "style-loader" : MiniCssExtractPlugin.loader,//SSR
           "css-loader",
           "sass-loader",
         ],

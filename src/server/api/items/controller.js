@@ -3,6 +3,7 @@ import { normalizeCategories, normalizeItems, normalizeItem, request } from './h
 
 async function getItems(req, res) {
     try {
+        if (req.query.search) req.query.q= req.query.search;
         const term = req.query.q ? `q=${req.query.q}` : '';
         const resultItems = await request(`/sites/MLA/search?${term}&limit=4`);
         const category_id = resultItems.results?.length ? resultItems.results[0].category_id : '';
@@ -13,7 +14,7 @@ async function getItems(req, res) {
             items: normalizeItems(resultItems)
         }
 
-        if (req.returnJSON) return data;
+        if (req.returnType==='json') return data;
         res.send(data);
 
     } catch (error) {
@@ -23,11 +24,6 @@ async function getItems(req, res) {
 }
 
 async function getItem(req, res) {
-    if(!req.headers.accept.includes('text/html') && !req.headers.accept.includes('json')){
-        if (req.returnJSON) return '';
-        res.send('');
-        return
-    }
     const idParamFrontend= String(req.params['0']).split('/').pop();
     const id = req.params.id || idParamFrontend;
     const responseitem = request(`/items/${id}`);
@@ -38,10 +34,11 @@ async function getItem(req, res) {
 
     const data = {
         author: res.author,
+        categories: await normalizeCategories(item.category_id),
         item: normalizeItem(item)
     }
 
-    if (req.returnJSON) return data;
+    if (req.returnType==='json') return data;
     res.send(data);
 
 

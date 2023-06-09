@@ -1,14 +1,11 @@
 import express from 'express'
 import cors from 'cors'
-import { renderPages } from './renderPages'
 import { resolve } from 'path';
 import favicon from 'serve-favicon';
-    
-const fs = require('fs');
-const path = require('path');
-  
-const app = express()
+import fs from 'fs';
 
+
+const app = express()
 
 function getRoutesTesting(folderRootName) {
   const fullPath = __dirname + '/' +folderRootName
@@ -43,14 +40,23 @@ app.use(cors())
 app.use(favicon(resolve(process.cwd(), 'public/favicon.png')));
 app.use(express.static('dist'))
 
-
 recursiveRoutes();
 
 
-app.get(/^(?!.*^\/api\/)(.*)/,async (req, res) => {
+app.get(/^(?!.*^\/api\/)(?!.*\.)(.*)/,async (req, res) => {
+  
+  if(!req.headers.accept.includes('text/html') && !req.headers.accept.includes('json')){
+    //res.send('');
+    res.end()
+    return
+  }
+
   try{
-    const html = await renderPages(req,res);
-    res.send(html);
+    if(process.env.NODE_ENV!=="test"){
+      const {renderPages} = require('./renderPages')
+      const html = await renderPages(req,res);
+      res.send(html);
+    }
   } catch (error) {
     console.error(error)
     res.end({error: error.message})

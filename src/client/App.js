@@ -1,35 +1,41 @@
 import React, { Suspense, useState, useEffect } from 'react'
 import { Route, Routes } from 'react-router-dom'
 import { HydrationProvider, useHydrated, Server, Client } from "react-hydration-provider";
+import { QueryClient, QueryClientProvider, } from '@tanstack/react-query'
 
+import ErrorBoundary from './shared/ErrorBoundary'
 import Layout from './components/Layout.jsx'
 import NotFound from './pages/NotFound.js'
-import ErrorBoundary from './shared/ErrorBoundary'
 import routes from './routes'
-import './styles.scss'
-import { StateProvider } from './components/Provider.jsx';
+import { StoreContext, globalStore } from './store/globalStore.js';
+
+import './styles/index.scss'
+
+const queryClient = new QueryClient()
 
 export default function App(props) {
   const { serverData = null } = props;
   return (
     <HydrationProvider>
-      <StateProvider>
+      <StoreContext.Provider value={globalStore({...serverData, hydrated:true})} >
         <ErrorBoundary>
-          <Routes>
-            <Route path="/" element={<Layout />}>
-              {routes.map(({ path, component: Element }) => (
-                <Route
-                  key={path}
-                  path={path}
-                  element={<Element data={serverData} />}
-                />
-              ))}
-              <Route path='*' element={<NotFound />} />
-            </Route>
+          <QueryClientProvider client={queryClient}>
+            <Routes>
+              <Route path="/" element={<Layout />}>
+                {routes.map(({ path, component: Element }) => (
+                  <Route
+                    key={path}
+                    path={path}
+                    element={<Element data={serverData} />}
+                  />
+                ))}
+                <Route path='*' element={<NotFound />} />
+              </Route>
 
-          </Routes>
+            </Routes>
+          </QueryClientProvider>
         </ErrorBoundary>
-      </StateProvider>
+      </StoreContext.Provider>
     </HydrationProvider>
   )
 }

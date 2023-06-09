@@ -1,9 +1,10 @@
  
 $fonts: 'Poppins', Helvertica, sans-serif;
-$background-color: #eeeeef;
-$spacing: 10px;
-$dark-grey: #999;
-$black: #404040;
-$max-width: 900px;
+$background-color: #eeeeee;
+$spacing: 16px;
+$dark-grey: #666666;
+$black: #333333;
+$column-width: 97.14285714px;
+$max-width: $column-width*10;
 $header: #fee600;
 $button-search-color: #eeeeee;

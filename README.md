@@ -13,7 +13,7 @@ run frontend and backend
 
 > yarn dev
 
-> yarn api => only backend
+## Testing
 
-
+> yarn test:server
 

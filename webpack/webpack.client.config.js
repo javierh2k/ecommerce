@@ -14,7 +14,6 @@ const swcConfig = JSON.parse(fs.readFileSync(getPath('.swcrc'), 'utf-8'));
 swcConfig.jsc.transform.react.development = _isDev;
 swcConfig.sourceMaps = _isDev;
 swcConfig.minify = !_isDev;
-const hotMiddlewareScript ='webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true';
 
 
 const browserConfig = {
@@ -30,13 +29,20 @@ const browserConfig = {
   output: {
     path: getPath('dist'),
     filename: 'bundle.js',
-    publicPath: '/',
   },
   module: {
     rules: [
       {
         test: /\.(png|jp(e*)g|gif|webp|avif)$/,
-        use: ['file-loader'],
+        // use: ['file-loader'],
+        use: [
+          {
+            loader: 'file-loader',
+             options: {
+               name: '[name].[ext]',
+               publicPath: '/'
+            }
+          }]
       },
       {
         test: /\.svg$/,
@@ -66,7 +72,8 @@ const browserConfig = {
       __DEV__: _isDev,
     }),
     new webpack.HotModuleReplacementPlugin(),
-  ].concat(devMode ? [] : [MiniCssExtractPlugin.loader])
+    new MiniCssExtractPlugin()
+  ]
 }
 
 module.exports = browserConfig

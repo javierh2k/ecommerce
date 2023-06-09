@@ -2,7 +2,7 @@
     background-color: $header;
     height: 50px;
     text-align: center;
-    padding: 7px;
+    padding: 7px $spacing;
 
     &__content{
         height: 100%;
@@ -23,7 +23,7 @@
             border: 0;
             margin-left: $spacing*2;
             width: 100%;
-            font-size: 0.9rem;
+            font-size: 18px;
         }
 
         button{

@@ -5,8 +5,7 @@ import { StaticRouter } from 'react-router-dom/server';
 import serialize from 'serialize-javascript'
 import App from '../client/App'
 import routes from '../client/routes'
-import Helmet from "react-helmet";
-const helmetData = Helmet.renderStatic( );
+import {Helmet} from "react-helmet";
 
 function getControllers() {
   const controllers = {}
@@ -19,20 +18,22 @@ function getControllers() {
 }
 
 export async function renderPages(req, res){
+   
+    const helmetData = Helmet.renderStatic();
     const url=String(req.url).split('?')[0];
     const activeRoute = routes.find((route) => matchPath(route.path, url))
     if(!activeRoute){
-      // console.log(req)
+      // console.log(req) //omit request images
       return ''
     }
     try{
       const apiControllers = getControllers();
       let data = {};
-      if(activeRoute.controllerInitialData){
+      if(activeRoute && activeRoute.controllerInitialData){
         const route = String(activeRoute.controllerInitialData).split('/');
         const [parentRoot, controller] = route;
         const controllerName= apiControllers[parentRoot][controller];
-        req.returnJSON = true;
+        req.returnType = 'json';
         
         data = await controllerName(req,res);
       }
@@ -47,6 +48,7 @@ export async function renderPages(req, res){
         <!DOCTYPE html>
         <html suppressHydrationWarning="true">
           <head>
+          
           ${helmetData.title.toString()}
           ${helmetData.meta.toString()}
             <script src="/bundle.js" defer></script>

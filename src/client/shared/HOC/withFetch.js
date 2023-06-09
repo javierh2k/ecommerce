@@ -1,38 +1,31 @@
 import React, { useState, useEffect, useRef } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useLocation } from 'react-router-dom'
+import { useQuery } from '@tanstack/react-query'
 
 export const withFetch = (Component) => (props) => {
-  const { id } = useParams()
-  const [items, setItems] = useState(() => __isBrowser__ ? window.__INITIAL_DATA__ : props.data)
-  const [loading, setLoading] = useState(!items)
-  const currentPath = __isBrowser__ ? window.location.pathname : '/';
-  const fetchNewRepos = useRef(!items);
+  console.log('withFetch:render')
+  const location = useLocation();
+  const currentPath = location.pathname;
 
-  useEffect(() => {
-    if (fetchNewRepos.current === true) {
-      setLoading(true)
-      fetch(`/api${currentPath}`, {
+  if (props.data) {
+    return <Component {...props} data={props.data} />;
+  }
+
+  const url = `/api${currentPath}${location.search.replace('search', 'q')}`;
+  const { isLoading, error, data, isFetching } = useQuery({
+    queryKey: ["itemsData"],
+    initialData: __isBrowser__ ? window.__INITIAL_DATA__ : props.data,
+    refetchOnWindowFocus: false,
+    queryFn: () =>
+      fetch(url, {
         method: 'GET',
         headers: {
           'Accept': 'application/json',
           'Content-Type': 'application/json'
         },
       }).then(r => r.json())
-        .then(setItems)
-        .finally(() => {
-          setLoading(false)
-        })
+  });
+  window.__INITIAL_DATA__ = undefined
 
-    } else {
-      fetchNewRepos.current = true
-    }
-
-    if (__isBrowser__) delete window.__INITIAL_DATA__;
-  }, [currentPath])
-
-  if (loading) {
-    return <div className='loading'></div>
-  }
-
-  return <Component {...props} data={items} />;
+  return <Component {...props} data={data} />;
 };
