@@ -9,6 +9,7 @@
     "prod:server": "cross-env NODE_ENV=production webpack --config webpack/webpack.server.config.js",
     "prod:client": "cross-env NODE_ENV=production webpack --config webpack/webpack.client.config.js",
     "build": "npm run prod:server && npm run prod:client",
+    "prod:build": "npm run prod:server && npm run prod:client",
     "dev:watch": "webpack --watch",
     "dev:server": "nodemon dist/server.js",
     "dev": "npm-run-all --parallel dev:server dev:watch ",
